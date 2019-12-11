@@ -52,9 +52,9 @@ public class KeyByBenchmarks extends BenchmarkBase {
 
 	@Benchmark
 	@OperationsPerInvocation(value = KeyByBenchmarks.TUPLE_RECORDS_PER_INVOCATION)
-	public void tupleKeyBy() throws Exception {
-		LocalStreamEnvironment env =
-				StreamExecutionEnvironment.createLocalEnvironment(4);
+	public void tupleKeyBy(FlinkEnvironmentContext context) throws Exception {
+		StreamExecutionEnvironment env = context.env;
+		env.setParallelism(4);
 
 		env.addSource(new IncreasingTupleSource(TUPLE_RECORDS_PER_INVOCATION, 10))
 				.keyBy(0)
@@ -65,9 +65,9 @@ public class KeyByBenchmarks extends BenchmarkBase {
 
 	@Benchmark
 	@OperationsPerInvocation(value = KeyByBenchmarks.ARRAY_RECORDS_PER_INVOCATION)
-	public void arrayKeyBy() throws Exception {
-		LocalStreamEnvironment env =
-				StreamExecutionEnvironment.createLocalEnvironment(4);
+	public void arrayKeyBy(FlinkEnvironmentContext context) throws Exception {
+		StreamExecutionEnvironment env = context.env;
+		env.setParallelism(4);
 
 		env.addSource(new IncreasingArraySource(ARRAY_RECORDS_PER_INVOCATION, 10))
 				.keyBy(0)

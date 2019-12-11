@@ -27,6 +27,7 @@ import org.apache.flink.streaming.api.TimeCharacteristic;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.util.FileUtils;
+import org.apache.flink.util.MemoryConfigurationUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -42,7 +43,9 @@ public class StateBackendBenchmarkBase extends BenchmarkBase {
 	}
 
 	public static class StateBackendContext {
-		public final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+		public final StreamExecutionEnvironment env = StreamExecutionEnvironment.createLocalEnvironment(
+			1,
+			MemoryConfigurationUtils.getConfigurationWithLegacyNetworkBuffers());
 
 		public final File checkpointDir;
 

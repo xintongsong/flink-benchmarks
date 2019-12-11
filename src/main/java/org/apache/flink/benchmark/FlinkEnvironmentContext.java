@@ -3,6 +3,7 @@ package org.apache.flink.benchmark;
 import org.apache.flink.runtime.state.memory.MemoryStateBackend;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 
+import org.apache.flink.util.MemoryConfigurationUtils;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
 
@@ -12,7 +13,9 @@ import static org.openjdk.jmh.annotations.Scope.Thread;
 
 @State(Thread)
 public class FlinkEnvironmentContext {
-    public final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+    public final StreamExecutionEnvironment env = StreamExecutionEnvironment
+        .createLocalEnvironment(1,
+        MemoryConfigurationUtils.getConfigurationWithLegacyNetworkBuffers());
 
     private final int parallelism = 1;
     private final boolean objectReuse = true;
