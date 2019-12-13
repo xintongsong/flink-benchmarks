@@ -78,7 +78,7 @@ public class TwoInputBenchmark extends BenchmarkBase {
 		env.execute();
 	}
 
-	@Benchmark
+	//@Benchmark
 	@OperationsPerInvocation(value = TwoInputBenchmark.ONE_IDLE_RECORDS_PER_INVOCATION)
 	public void twoInputOneIdleMapSink(FlinkEnvironmentContext context) throws Exception {
 

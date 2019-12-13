@@ -60,19 +60,19 @@ public class WindowBenchmarks extends BenchmarkBase {
 		context.execute();
 	}
 
-	@Benchmark
+	//@Benchmark
 	public void tumblingWindow(TimeWindowContext context) throws Exception {
 		IntLongApplications.reduceWithWindow(context.source, TumblingEventTimeWindows.of(Time.seconds(10_000)));
 		context.execute();
 	}
 
-	@Benchmark
+	//@Benchmark
 	public void slidingWindow(TimeWindowContext context) throws Exception {
 		IntLongApplications.reduceWithWindow(context.source, SlidingEventTimeWindows.of(Time.seconds(10_000), Time.seconds(1000)));
 		context.execute();
 	}
 
-	@Benchmark
+	//@Benchmark
 	public void sessionWindow(TimeWindowContext context) throws Exception {
 		IntLongApplications.reduceWithWindow(context.source, EventTimeSessionWindows.withGap(Time.seconds(500)));
 		context.execute();
